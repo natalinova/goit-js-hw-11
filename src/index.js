@@ -18,6 +18,7 @@ let perPage = 40;
 let currentPage = 1;
 let totalPages = 5;
 let isAlertVisible = false;
+let TotalPictures = null
 loadButton.classList.add("invisible");
 
 
@@ -50,13 +51,15 @@ async function fetchImages(queryValue) {
     try {
         const response = await axios.get(`${BASE_URL}?key=29442705-65f5f0476d101e3a0092bd469&q=${queryValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`);
         const arrayImages = await response.data.hits;
-        console.log(arrayImages)
+         TotalPictures = response.data.totalHits
+        // console.log(arrayImages)
         if (arrayImages.length === 0) {
         Notiflix.Notify.warning('Sorry, there are no images matching your search query. Please try again.');
         }
         else {
-            if (arrayImages.length !== 0) {
+            if (arrayImages.length !== 0 && currentPage === 1) {
                 loadButton.classList.remove("invisible");
+                Notiflix.Notify.success(`Hoooray! We found ${TotalPictures} images!`)
             }
         }
         return arrayImages;
