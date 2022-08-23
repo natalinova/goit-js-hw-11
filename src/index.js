@@ -99,10 +99,9 @@ function createMarkup(images) {
               </p>
         </div>
     </div>    
-    `  
-
+    ` 
      }
-     )
+     ).join("")
     gallery.innerHTML = markupFull;
     lightbox.refresh();
 }
